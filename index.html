@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nature Uncovered | English Project</title>
+
+    <style>
+        :root {
+            --background: #111310;
+            --surface: #1b1e19;
+            --surface-hover: #242820;
+            --accent: #d9a45b;
+            --text: #f0eee7;
+            --muted: #a3a59a;
+            --border: #34372e;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 7%;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .brand span {
+            color: var(--accent);
+        }
+
+        .nav-label {
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Hero */
+
+        .hero {
+            padding: 100px 7% 85px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero::after {
+            content: "NATURE";
+            position: absolute;
+            right: -25px;
+            bottom: -65px;
+            font-size: clamp(100px, 20vw, 260px);
+            font-weight: 900;
+            letter-spacing: -10px;
+            color: #ffffff05;
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            max-width: 800px;
+            margin: 22px 0;
+            font-size: clamp(42px, 8vw, 86px);
+            line-height: 1.05;
+            letter-spacing: -3px;
+            font-weight: 800;
+        }
+
+        .hero h1 em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .hero p {
+            max-width: 470px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .hero-bottom {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-top: 35px;
+        }
+
+        .hero-line {
+            width: 45px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .hero-bottom span {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--muted);
+        }
+
+        /* Main content */
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 75px 7%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .section-header h2 {
+            margin: 8px 0 0;
+            font-size: clamp(25px, 4vw, 38px);
+            letter-spacing: -1px;
+        }
+
+        .section-count {
+            color: var(--muted);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        /* Sentence cards */
+
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 1fr);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.25s,
+                        background 0.25s,
+                        transform 0.25s;
+        }
+
+        .card:hover {
+            border-color: #746044;
+            background: var(--surface-hover);
+            transform: translateY(-3px);
+        }
+
+        .image-wrap {
+            position: relative;
+            min-height: 245px;
+            overflow: hidden;
+            background: #252820;
+        }
+
+        .image-wrap img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 245px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .card:hover .image-wrap img {
+            transform: scale(1.05);
+        }
+
+        .image-number {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            padding: 6px 10px;
+            background: #111310d9;
+            border: 1px solid #ffffff24;
+            color: var(--accent);
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 28px 32px;
+            min-width: 0;
+        }
+
+        .category {
+            color: var(--accent);
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .card h3 {
+            margin: 12px 0 24px;
+            font-size: clamp(19px, 2.4vw, 27px);
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .audio-area {
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        .audio-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        audio {
+            display: block;
+            width: 100%;
+            height: 42px;
+            accent-color: var(--accent);
+        }
+
+        /* Footer */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 30px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-brand {
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .footer-brand span {
+            color: var(--accent);
+        }
+
+        footer p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 11px;
+            text-align: right;
+        }
+
+        /* Responsive layout */
+
+        @media (max-width: 720px) {
+            .navbar {
+                padding: 20px 6%;
+            }
+
+            .nav-label {
+                font-size: 9px;
+                letter-spacing: 1px;
+            }
+
+            .hero {
+                padding: 75px 6% 65px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .container {
+                padding: 55px 6%;
+            }
+
+            .card {
+                grid-template-columns: 1fr;
+            }
+
+            .image-wrap,
+            .image-wrap img {
+                height: 230px;
+                min-height: 230px;
+            }
+
+            .card-content {
+                padding: 24px;
+            }
+
+            .section-header {
+                align-items: start;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            footer {
+                padding: 25px 6%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="brand">WILD<span>.</span> WORLD</div>
+        <div class="nav-label">English Listening Project</div>
+    </nav>
+
+    <header class="hero">
+        <div class="eyebrow">Five sentences · One planet</div>
+
+        <h1>
+            Nature<br>
+            <em>Uncovered.</em>
+        </h1>
+
+        <p>
+            From the wild animals that roam our planet
+            to the forests we must protect, discover the
+            natural world through English.
+        </p>
+
+        <div class="hero-bottom">
+            <div class="hero-line"></div>
+            <span>LISTEN · LEARN · EXPLORE</span>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="section-header">
+            <div>
+                <div class="eyebrow">The collection</div>
+                <h2>Stories of Nature</h2>
+            </div>
+
+            <div class="section-count">01 — 05 / AUDIO GUIDE</div>
+        </div>
+
+        <section class="gallery">
+
+            <!-- Sentence 1 -->
+            <article class="card">
+                <div class="image-wrap">
+                    <img
+                        src="images/tiger.jpeg"
+                        alt="A tiger in the wild"
+                        loading="lazy"
+                    >
+                    <span class="image-number">01 / 05</span>
+                </div>
+
+                <div class="card-content">
+                    <span class="category">Wildlife</span>
+
+                    <h3>A tiger is a wild animal.</h3>
+
+                    <div class="audio-area">
+                        <span class="audio-label">LISTEN TO AUDIO</span>
+
+                        <audio controls preload="none">
+                            <source src="audio/Tiger.mp3" type="audio/mpeg">
+                            Your browser does not support audio.
+                        </audio>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sentence 2 -->
+            <article class="card">
+                <div class="image-wrap">
+                    <img
+                        src="images/earth.jpeg"
+                        alt="Planet Earth"
+                        loading="lazy"
+                    >
+                    <span class="image-number">02 / 05</span>
+                </div>
+
+                <div class="card-content">
+                    <span class="category">Our Planet</span>
+
+                    <h3>We live on Earth.</h3>
+
+                    <div class="audio-area">
+                        <span class="audio-label">LISTEN TO AUDIO</span>
+
+                        <audio controls preload="none">
+                            <source src="audio/Earth.mp3" type="audio/mpeg">
+                            Your browser does not support audio.
+                        </audio>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sentence 3 -->
+            <article class="card">
+                <div class="image-wrap">
+                    <img
+                        src="images/destroy.jpeg"
+                        alt="A jungle affected by destruction"
+                        loading="lazy"
+                    >
+                    <span class="image-number">03 / 05</span>
+                </div>
+
+                <div class="card-content">
+                    <span class="category">Environmental Issues</span>
+
+                    <h3>They are destroying the jungle.</h3>
+
+                    <div class="audio-area">
+                        <span class="audio-label">LISTEN TO AUDIO</span>
+
+                        <audio controls preload="none">
+                            <source src="audio/Jungle.mp3" type="audio/mpeg">
+                            Your browser does not support audio.
+                        </audio>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sentence 4 -->
+            <article class="card">
+                <div class="image-wrap">
+                    <img
+                        src="images/jungle.jpeg"
+                        alt="Golestan Forest in Iran"
+                        loading="lazy"
+                    >
+                    <span class="image-number">04 / 05</span>
+                </div>
+
+                <div class="card-content">
+                    <span class="category">Travel & Nature</span>
+
+                    <h3>I went to Golestan Forest last year.</h3>
+
+                    <div class="audio-area">
+                        <span class="audio-label">LISTEN TO AUDIO</span>
+
+                        <audio controls preload="none">
+                            <source src="audio/Forest.mp3" type="audio/mpeg">
+                            Your browser does not support audio.
+                        </audio>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sentence 5 -->
+            <article class="card">
+                <div class="image-wrap">
+                    <img
+                        src="images/lion.jpeg"
+                        alt="The Persian lion"
+                        loading="lazy"
+                    >
+                    <span class="image-number">05 / 05</span>
+                </div>
+
+                <div class="card-content">
+                    <span class="category">Extinct Wildlife</span>
+
+                    <h3>The Persian lion died out about 75 years ago.</h3>
+
+                    <div class="audio-area">
+                        <span class="audio-label">LISTEN TO AUDIO</span>
+
+                        <audio controls preload="none">
+                            <source src="audio/lion.mp3" type="audio/mpeg">
+                            Your browser does not support audio.
+                        </audio>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-brand">WILD<span>.</span> WORLD</div>
+        <p>English Listening Project<br>Discover. Listen. Learn.</p>
+    </footer>
+
+</body>
+</html>
